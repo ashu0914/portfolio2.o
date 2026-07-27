@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fafaf9;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5f5f4;
+  --color-border: #e5e5e5;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-accent-purple: #a855f7;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-rose: #f43f5e;
+  --color-accent-amber: #f59e0b;
+  --color-accent-emerald: #10b981;
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-muted: #a3a3a3;
+
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+/* ── Reset ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; background: #fafaf9; }
+body {
+  font-family: var(--font-body);
+  background: #fafaf9;
+  color: #171717;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Selection ── */
+::selection { background: rgba(99,102,241,0.15); color: #171717; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+
+/* ── Container ── */
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 768px) { .container-custom { padding: 0 48px; } }
+@media (min-width: 1280px) { .container-custom { padding: 0 80px; } }
+
+/* ── Section Padding ── */
+.section-padding { padding: 140px 0; }
+@media (max-width: 768px) { .section-padding { padding: 100px 0; } }
+
+/* ── Text Gradients ── */
+.text-gradient {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-warm {
+  background: linear-gradient(135deg, #f43f5e, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Colorful Cards ── */
+.card-indigo { background: linear-gradient(135deg, #eef2ff, #e0e7ff); border: 1px solid #c7d2fe; }
+.card-purple { background: linear-gradient(135deg, #faf5ff, #f3e8ff); border: 1px solid #e9d5ff; }
+.card-cyan { background: linear-gradient(135deg, #ecfeff, #cffafe); border: 1px solid #a5f3fc; }
+.card-rose { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 1px solid #fecdd3; }
+.card-amber { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fde68a; }
+.card-emerald { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 1px solid #a7f3d0; }
+
+/* ── Section Gradients ── */
+.bg-cool { background: linear-gradient(180deg, #eef2ff 0%, #fafaf9 100%); }
+.bg-warm { background: linear-gradient(180deg, #fef7ed 0%, #fafaf9 100%); }
+.bg-mint { background: linear-gradient(180deg, #ecfdf5 0%, #fafaf9 100%); }
+
+/* ── Separator ── */
+.separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e5e5, transparent);
+}
+
+/* ── Reveal Classes (GSAP) ── */
+.reveal { opacity: 0; transform: translateY(40px); }
+.reveal-left { opacity: 0; transform: translateX(-40px); }
+.reveal-scale { opacity: 0; transform: scale(0.95); }
+
+/* ── Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+.animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* ── Line Clamp ── */
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ── Pin spacer fix ── */
+.pin-spacer { overflow: visible !important; }
