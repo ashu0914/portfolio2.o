@@ -206,6 +206,7 @@ function vitePluginStorageProxy(): Plugin {
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
+  base: "/portfolio2.o/", //  Yahan apne repo ka naam daalein (slahes ke saath)
   plugins,
   resolve: {
     alias: {
@@ -214,6 +215,7 @@ export default defineConfig({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
+  // ... rest of the code remains same
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
   build: {
