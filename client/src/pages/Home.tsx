@@ -4,11 +4,23 @@ import { ArrowDownRight, ArrowUpRight, ExternalLink, GraduationCap, Heart, Spark
 import { Link } from "wouter";
 import { Rule, SectionHeading } from "@/components/PagePrimitives";
 import { profile, skillGroups, education, areasOfInterest, coreStrengths } from "@/lib/siteData";
+import PixelRevealBackground from "@/components/PixelRevealBackground";
 
 export default function Home() {
   return (
     <>
       <section className="home-hero" data-mouse-parallax>
+        {/* Pixel-reveal background — sits behind everything in this section */}
+        <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+          <PixelRevealBackground
+            image="/images/iron_man.jpeg"
+            revealImage="/images/spider_man.jpeg"
+            pixelSize={14}
+            brushRadius={70}
+            healSpeed={0.06}
+          />
+        </div>
+
         <div className="hero-meta" data-reveal>
           <span className="eyebrow">AI / ML developer</span>
           <span className="hero-meta-line" />

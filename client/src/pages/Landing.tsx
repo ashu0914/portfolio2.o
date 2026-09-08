@@ -4,6 +4,8 @@ import { Link } from "wouter";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { gsap } from "gsap";
 import HoverMaskReveal from "@/components/HoverMaskReveal";
+import Home from "./Home";
+import PixelRevealBackground from "@/components/PixelRevealBackground";
 
 export default function Landing() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -49,7 +51,7 @@ export default function Landing() {
           <HoverMaskReveal
             grayscaleImg="/images/ashirwad-grayscale.jpg"
             colorImg="/images/ashirwad-color.jpg"
-            brushRadius={100}
+            brushRadius={50}
           />
         </div>
 
@@ -98,6 +100,24 @@ export default function Landing() {
           </div>
         </div>
       </section>
+{/* Pixel Reveal section — sits right below the full-bleed hero, above Home */}
+<section className="relative w-full h-screen overflow-hidden">
+  <Home />
+  <PixelRevealBackground
+    image="/images/iron_man.jpeg"
+    revealImage="/images/spider_man.jpeg"
+    pixelSize={14}
+    brushRadius={70}
+    healSpeed={0.25}
+  />
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+    <p className="text-center text-white/70 text-sm tracking-[0.14em] uppercase">
+    </p>
+  </div>
+</section>
+
+
+      
 
       {/* Quick strip below */}
       <section className="landing-strip section-pad">

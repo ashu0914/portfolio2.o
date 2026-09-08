@@ -190,9 +190,8 @@ export const certifications = [
 
 export const navItems = [
   { href: "/", label: "Home", index: "00" },
-  { href: "/about", label: "About", index: "01" },
-  { href: "/projects", label: "Projects", index: "02" },
-  { href: "/skills", label: "Skills", index: "03" },
-  { href: "/certifications", label: "Certificates", index: "04" },
-  { href: "/contact", label: "Contact", index: "05" },
+  { href: "/projects", label: "Projects", index: "01" },
+  { href: "/skills", label: "Skills", index: "02" },
+  { href: "/certifications", label: "Certificates", index: "03" },
+  { href: "/contact", label: "Contact", index: "04" },
 ];

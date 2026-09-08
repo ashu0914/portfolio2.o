@@ -1,4 +1,10 @@
 // Machined Editorial Certifications: verified evidence first, direct links always visible.
+import HeroSection from "../components/asme/HeroSection";
+import AboutSection from "../components/asme/AboutSection";
+import FeaturedVideoSection from "../components/asme/FeaturedVideoSection";
+import PhilosophySection from "../components/asme/PhilosophySection";
+import ServicesSection from "../components/asme/ServicesSection";
+
 import { ArrowUpRight, BadgeCheck, ExternalLink, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
 import { certifications } from "@/lib/siteData";
@@ -7,7 +13,13 @@ import { PageIntro, Rule, SectionHeading } from "@/components/PagePrimitives";
 export default function Certifications() {
   return (
     <>
-      <PageIntro
+      <HeroSection />
+      <AboutSection />
+      <FeaturedVideoSection />
+      <PhilosophySection />
+      <ServicesSection />
+
+            <PageIntro
         index=""
         kicker="Certifications / evidence"
         title="Proof is part of the interface."

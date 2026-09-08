@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 /* ═══════════════════════════════════════════════════════════════
    ASHIRWAD JHA — DARK CINEMATIC EDITORIAL SYSTEM
    Premium portfolio: deep dark, warm accents, cinematic motion.
@@ -69,8 +70,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ── Navigation ───────────────────────────────────────── */
 .site-frame { overflow: clip; }
-.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 3.5vw; background: var(--surface-glass); border-bottom: 1px solid var(--line); backdrop-filter: blur(24px) saturate(1.4); transition: height .4s var(--ease-out), box-shadow .4s var(--ease-out), background .4s var(--ease-out); }
-.nav-compact { height: 58px; box-shadow: 0 4px 30px rgba(0,0,0,.3); background: rgba(10,10,15,.92); }
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 3.5vw; background: transparent; border-bottom: none; transition: height .4s var(--ease-out), box-shadow .4s var(--ease-out), background .4s var(--ease-out); }
+.nav-compact { height: 58px; box-shadow: none; background: transparent; }
 .brand-lockup { display: inline-flex; align-items: center; gap: 11px; min-width: 185px; }
 .brand-mark { width: 35px; height: 35px; object-fit: contain; display: block; }
 .brand-wordmark { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
@@ -658,4 +659,66 @@ html.has-motion [data-slide-left], html.has-motion [data-slide-right], html.has-
   width: 0%;
   background: linear-gradient(to right, #2fe0c4, #8b6bff);
   transition: width 0.15s ease-out;
+}
+:root {
+  --font-heading: "HelveticaNowDisplay-Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "HelveticaNowDisplayW01-Rg", "Helvetica Neue", Arial, sans-serif;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: blink 1s step-end infinite;
+}
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 20%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0.15) 80%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+/* Overlay container par clicks aur hover mouse-events canvas ko pass karne do */
+.landing-overlay {
+  pointer-events: none;
+}
+
+/* Jo clickable elements hain unpe pointer-events active rakho */
+.landing-overlay a, 
+.landing-overlay button {
+  pointer-events: auto;
 }

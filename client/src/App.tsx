@@ -12,6 +12,9 @@ import Skills from "./pages/Skills";
 import Certifications from "./pages/Certifications";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Mainframe from "./pages/Mainframe";
+// ...
+<Route path="/mainframe" element={<Mainframe />} />
 
 function Router() {
   return (

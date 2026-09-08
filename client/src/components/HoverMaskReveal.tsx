@@ -70,26 +70,33 @@ export default function HoverMaskReveal({
     img.src = grayscaleImg;
 
     // Add trail points between two positions (fill gaps for smooth strokes)
+    // ✅ YE NAYA FRACTAL JITTER WALA FUNCTION PASTE KARO
     function addTrailPoints(x0: number, y0: number, x1: number, y1: number, speed: number) {
       const dx = x1 - x0;
       const dy = y1 - y0;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const step = Math.max(8, brushRadius * 0.12);
+      const step = Math.max(6, brushRadius * 0.1);
       const count = Math.max(Math.ceil(dist / step), 1);
       const now = performance.now();
 
-      // Speed affects radius — faster = larger, more fluid spread
       const speedFactor = Math.min(speed / 15, 1.8);
       const baseRadius = brushRadius * (0.7 + speedFactor * 0.5);
 
       for (let i = 0; i <= count; i++) {
         const t = i / count;
+
+        // Fractal / Organic Displacement
+        const frequency = 0.25;
+        const amplitude = brushRadius * 0.3; // Isko badhaoge toh aur rough/fractal edge banega
+        const fractalX = Math.sin(i * frequency + now * 0.005) * amplitude;
+        const fractalY = Math.cos(i * frequency + now * 0.005) * amplitude;
+
         trailRef.current.push({
-          x: x0 + dx * t,
-          y: y0 + dy * t,
+          x: x0 + dx * t + fractalX,
+          y: y0 + dy * t + fractalY,
           birth: now,
-          radius: baseRadius * (0.85 + Math.random() * 0.3), // slight variation
-          maxLife: 2000 + Math.random() * 500, // 2-2.5s lifetime
+          radius: baseRadius * (0.6 + Math.random() * 0.7),
+          maxLife: 2000 + Math.random() * 500,
         });
       }
     }
@@ -213,9 +220,18 @@ export default function HoverMaskReveal({
   }, [grayscaleImg, brushRadius]);
 
   return (
-    <div className="mask-reveal-container">
-      <img src={colorImg} alt="Ashirwad Jha" className="mask-reveal-color" />
-      <canvas ref={canvasRef} className="mask-reveal-canvas" />
-    </div>
-  );
+  <div className="mask-reveal-container" style={{ position: "relative", width: "100%", height: "100%" }}>
+    <img
+      src={colorImg}
+      alt="Ashirwad Jha"
+      className="mask-reveal-color"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+    />
+    <canvas
+      ref={canvasRef}
+      className="mask-reveal-canvas"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "auto" }}
+    />
+  </div>
+);
 }
