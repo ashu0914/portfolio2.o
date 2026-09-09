@@ -119,36 +119,35 @@ export default function Landing() {
 
       
 
-      {/* Quick strip below */}
-      <section className="some-section" style={{ position: "relative" }}>
+    <section className="landing-strip section-pad" style={{ position: "relative" }}>
   <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
     <Auralis colors={["#ef4444", "#dc2626", "#b91c1c"]} speed={0.3} grain={0.6} height="100%" />
-          <span className="eyebrow">What I build</span>
-          <h2 className="display-md" data-motion-text>From prompt to action.</h2>
-        </div>
-        <div className="landing-strip-grid" data-stagger-cards>
-          <div className="landing-strip-card">
-            <span className="landing-strip-num">01</span>
-            <h3>Voice AI Assistants</h3>
-            <p>Modular speech recognition, LLM reasoning, memory, and system automation — production-ready.</p>
-          </div>
-          <div className="landing-strip-card">
-            <span className="landing-strip-num">02</span>
-            <h3>Agentic Systems</h3>
-            <p>Autonomous workflows with tool use, task execution, and multi-step reasoning chains.</p>
-          </div>
-          <div className="landing-strip-card">
-            <span className="landing-strip-num">03</span>
-            <h3>AI Applications</h3>
-            <p>Python-based Generative AI applications with LangChain, FastAPI, and modern ML pipelines.</p>
-          </div>
-        </div>
-        <div className="landing-strip-cta" data-reveal>
-          <Link href="/projects" className="text-link" data-cursor-label="View work">
-            View all projects <ArrowUpRight size={14} />
-          </Link>
-        </div>
-      </section>
+  </div>
+
+  <div className="landing-strip-head" data-reveal>
+    <span className="eyebrow">What I build</span>
+    <h2 className="display-md" data-motion-text>From prompt to action.</h2>
+  </div>
+  <div className="landing-strip-grid" data-stagger-cards>
+    <div className="landing-strip-card">
+      <span className="landing-strip-num">01</span>
+      <h3>Voice AI Assistants</h3>
+      <p>Modular speech recognition, LLM reasoning, memory, and system automation — production-ready.</p>
     </div>
-  );
-}
+    <div className="landing-strip-card">
+      <span className="landing-strip-num">02</span>
+      <h3>Agentic Systems</h3>
+      <p>Autonomous workflows with tool use, task execution, and multi-step reasoning chains.</p>
+    </div>
+    <div className="landing-strip-card">
+      <span className="landing-strip-num">03</span>
+      <h3>AI Applications</h3>
+      <p>Python-based Generative AI applications with LangChain, FastAPI, and modern ML pipelines.</p>
+    </div>
+  </div>
+  <div className="landing-strip-cta" data-reveal>
+    <Link href="/projects" className="text-link" data-cursor-label="View work">
+      View all projects <ArrowUpRight size={14} />
+    </Link>
+  </div>
+</section>
