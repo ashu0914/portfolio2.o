@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -55,10 +53,10 @@ void main() {
 
   float n1 = snoise(p * 0.5 + t);
   float n2 = snoise(p * 0.9 - t * 0.5 + n1);
-  
-  float light = pow(abs(n2), 2.5) * 0.5; 
 
-  vec3 col = vec3(0.02, 0.01, 0.01); 
+  float light = pow(abs(n2), 2.5) * 0.5;
+
+  vec3 col = vec3(0.02, 0.01, 0.01);
 
   col += u_colors[0] * smoothstep(0.1, 1.0, n1) * 0.5;
   col += u_colors[1] * light;
