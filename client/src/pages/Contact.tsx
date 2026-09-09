@@ -6,6 +6,7 @@ import { PageIntro, Rule } from "@/components/PagePrimitives";
 import BackgroundVideo from "../components/mainframe/BackgroundVideo";
 import Navbar from "../components/mainframe/Navbar";
 import Hero from "../components/mainframe/Hero";
+import Waves from "@/components/interactive-waves";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -22,6 +23,10 @@ export default function Contact() {
     window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
+  <div className="relative h-[500px] w-full">
+  <Waves />
+  </div>
+
   return (
     <>
       <div className="relative min-h-screen w-full">
@@ -29,6 +34,9 @@ export default function Contact() {
         <Navbar />
         <Hero />
       </div>
+      <div className="relative h-[1000px] w-full">
+  <Waves />
+  </div>
 
       <PageIntro
         index=""
@@ -42,7 +50,7 @@ export default function Contact() {
 
       <section className="contact-section section-pad">
         <div className="contact-visual" data-image-reveal data-parallax-section>
-          <img src="/images/ashirwad-contact-desk.png" alt="Quiet editorial desk still life with a note, pencil, and compact technical instrument." data-parallax-image />
+          <img src={`${import.meta.env.BASE_URL}images/ashirwad-contact-desk.png`} alt="Quiet editorial desk still life with a note, pencil, and compact technical instrument." data-parallax-image />
           <div className="contact-visual-caption">Open channel / 24·7</div>
         </div>
         <div className="contact-content">

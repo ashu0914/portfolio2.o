@@ -84,6 +84,34 @@ export default function PhilosophySection() {
                 resonate long after the first impression.
               </p>
             </div>
+
+            <div className="h-px w-full bg-white/10" />
+
+              <div>
+              <p className="mb-4 text-xs uppercase tracking-widest text-white/40">
+                Choose your space
+              </p>
+              <p className="text-base leading-relaxed text-white/70 md:text-lg">
+                Every meaningful breakthrough begins at the intersection of
+                disciplined strategy and remarkable creative vision. We
+                operate at that crossroads, turning bold thinking into
+                tangible outcomes that move people and reshape industries.
+              </p>
+            </div>
+
+            <div className="h-px w-full bg-white/10" />
+
+              <div>
+              <p className="mb-4 text-xs uppercase tracking-widest text-white/40">
+                Choose your space
+              </p>
+              <p className="text-base leading-relaxed text-white/70 md:text-lg">
+                Every meaningful breakthrough begins at the intersection of
+                disciplined strategy and remarkable creative vision. We
+                operate at that crossroads, turning bold thinking into
+                tangible outcomes that move people and reshape industries.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

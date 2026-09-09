@@ -41,7 +41,7 @@ export default function Home() {
         </div>
         <div className="hero-visual" data-mouse-depth="0.025" data-reveal data-reveal-delay="0.1" data-parallax-section>
           <div className="hero-image-frame" data-image-reveal>
-            <img src="/images/ashirwad-hero-aperture.png" alt="Editorial still life of an AI system notebook and technical instrument." data-parallax-image />
+            <img src={`${import.meta.env.BASE_URL}images/ashirwad-hero-aperture.png`} alt="Editorial still life of an AI system notebook and technical instrument." data-parallax-image />
             <div className="hero-image-overlay" />
           </div>
           <div className="hero-stamp" data-mouse-depth="0.08">

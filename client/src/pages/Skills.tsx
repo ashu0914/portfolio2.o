@@ -8,11 +8,11 @@ export default function Skills() {
   return (
     <>
       <FrameSequence
-  frameCount={300}
-  framePath={(i) => `${import.meta.env.BASE_URL}images/frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`}
-  scrollLengthVh={3}
-  fit="cover" // <-- "contain" ki jagah "cover" kar dein
-    />
+        frameCount={300}
+        framePath={(i) => `${import.meta.env.BASE_URL}images/frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`}
+        scrollLengthVh={3}
+        fit="cover" // <-- "contain" ki jagah "cover" kar dein
+      />
 
       <PageIntro
         index="02"
@@ -30,7 +30,7 @@ export default function Skills() {
       <section className="atlas-section section-pad">
         <div className="atlas-visual" data-image-reveal data-parallax-section>
           <img
-            src="/images/ashirwad-systems-atlas.png"
+            src={`${import.meta.env.BASE_URL}images/ashirwad-systems-atlas.png`}
             alt="Abstract editorial system map showing connected nodes, prompts, memory, and command paths."
             data-parallax-image
           />

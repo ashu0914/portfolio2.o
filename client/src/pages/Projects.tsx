@@ -3,6 +3,7 @@ import { ArrowUpRight, ExternalLink, MoveUpRight, ChevronRight, Layers, Zap, Bra
 import { Link } from "wouter";
 import { PageIntro, Rule, SectionHeading } from "@/components/PagePrimitives";
 import { profile, projects } from "@/lib/siteData";
+import VelorahHero from "@/components/VelorahHero";
 
 const iconMap: Record<string, React.ReactNode> = {
   "01": <Brain size={20} />,
@@ -12,6 +13,8 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function Projects() {
   return (
     <>
+      <VelorahHero />
+
       <PageIntro
         index=""
         kicker="Projects / builds"

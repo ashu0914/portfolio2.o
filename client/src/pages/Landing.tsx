@@ -50,8 +50,8 @@ export default function Landing() {
         {/* Full-viewport portrait background with mask reveal */}
         <div className="landing-bg">
           <HoverMaskReveal
-             grayscaleImg={`${import.meta.env.BASE_URL}images/ashirwad-grayscale.jpg`}
-   colorImg={`${import.meta.env.BASE_URL}images/ashirwad-color.jpg`}
+              grayscaleImg={`${import.meta.env.BASE_URL}images/ashirwad-grayscale.jpg`}
+    colorImg={`${import.meta.env.BASE_URL}images/ashirwad-color.jpg`}
             brushRadius={50}
           />
         </div>
@@ -105,8 +105,8 @@ export default function Landing() {
 <section className="relative w-full h-screen overflow-hidden">
   <Home />
   <PixelRevealBackground
-    image="/images/iron_man.jpeg"
-    revealImage="/images/spider_man.jpeg"
+    image={`${import.meta.env.BASE_URL}images/iron_man.jpeg`}
+    revealImage={`${import.meta.env.BASE_URL}images/spider_man.jpeg`}
     pixelSize={14}
     brushRadius={70}
     healSpeed={0.25}
