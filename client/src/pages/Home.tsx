@@ -13,7 +13,7 @@ export default function Home() {
         {/* Pixel-reveal background — sits behind everything in this section */}
         <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
           <PixelRevealBackground
-            image="/images/iron_man.jpeg"
+            image={`${import.meta.env.BASE_URL}images/iron_man.jpeg`}
             revealImage="/images/spider_man.jpeg"
             pixelSize={14}
             brushRadius={70}
