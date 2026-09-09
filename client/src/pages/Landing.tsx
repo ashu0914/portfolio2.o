@@ -49,8 +49,8 @@ export default function Landing() {
         {/* Full-viewport portrait background with mask reveal */}
         <div className="landing-bg">
           <HoverMaskReveal
-            grayscaleImg="/images/ashirwad-grayscale.jpg"
-            colorImg="/images/ashirwad-color.jpg"
+             grayscaleImg={`${import.meta.env.BASE_URL}images/ashirwad-grayscale.jpg`}
+   colorImg={`${import.meta.env.BASE_URL}images/ashirwad-color.jpg`}
             brushRadius={50}
           />
         </div>
