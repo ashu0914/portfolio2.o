@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import HoverMaskReveal from "@/components/HoverMaskReveal";
 import Home from "./Home";
 import PixelRevealBackground from "@/components/PixelRevealBackground";
-import auralis from "@/components/auralis";
+import Auralis from "@/components/auralis";
 
 export default function Landing() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -122,7 +122,7 @@ export default function Landing() {
 
     <section className="landing-strip section-pad" style={{ position: "relative" }}>
   <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
-    <auralis colors={["#ef4444", "#dc2626", "#b91c1c"]} speed={0.3} grain={0.6} height="100%" />
+    <Auralis colors={["#ef4444", "#dc2626", "#b91c1c"]} speed={0.3} grain={0.6} height="100%" />
   </div>
 
   <div className="landing-strip-head" data-reveal>
