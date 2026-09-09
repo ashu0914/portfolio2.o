@@ -9,7 +9,7 @@ export default function Skills() {
     <>
       <FrameSequence
   frameCount={300}
-  framePath={(i) => `/images/frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`}
+  framePath={(i) => `${import.meta.env.BASE_URL}images/frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`}
   scrollLengthVh={3}
   fit="cover" // <-- "contain" ki jagah "cover" kar dein
     />
