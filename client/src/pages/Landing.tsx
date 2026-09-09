@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import HoverMaskReveal from "@/components/HoverMaskReveal";
 import Home from "./Home";
 import PixelRevealBackground from "@/components/PixelRevealBackground";
+import Auralis from "@/components/Auralis";
 
 export default function Landing() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -151,3 +152,6 @@ export default function Landing() {
     </Link>
   </div>
 </section>
+    </div>
+  );
+}
