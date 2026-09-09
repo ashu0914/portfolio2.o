@@ -123,7 +123,6 @@ export default function Landing() {
       <section className="some-section" style={{ position: "relative" }}>
   <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
     <Auralis colors={["#ef4444", "#dc2626", "#b91c1c"]} speed={0.3} grain={0.6} height="100%" />
-  </div>
           <span className="eyebrow">What I build</span>
           <h2 className="display-md" data-motion-text>From prompt to action.</h2>
         </div>
