@@ -4,6 +4,7 @@ import { Link, useLocation } from "wouter";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navItems, profile } from "@/lib/siteData";
 import { useMotion } from "@/hooks/useMotion";
+import { useMotion } from "@/components/Navbar.tsx";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   useMotion();
