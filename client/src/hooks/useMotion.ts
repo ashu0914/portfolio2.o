@@ -1,336 +1,127 @@
-// Machined Editorial motion: one calm, instrument-like system shared by every route.
-import { useEffect } from "react";
-import { useLocation } from "wouter";
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useState, useEffect } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.defaults({ ease: "power3.out", duration: 0.85 });
+// Drop this in as your site-wide navbar. It's self-contained (no props needed) —
+// pin it near the top of every page's layout, above your Three.js/GSAP content.
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-type MotionElement = HTMLElement & {
-  __motionCleanups?: Array<() => void>;
-};
-
-export function useMotion() {
-  const [location] = useLocation();
-
+  // Close on ESC, lock body scroll while the mobile menu is open
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    const root = document.documentElement;
-    root.classList.toggle("has-motion", !reduced);
-    window.scrollTo({ top: 0, behavior: "auto" });
-
-    if (reduced) {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const lenis = new Lenis({
-        lerp: 0.08,
-        smoothWheel: true,
-        wheelMultiplier: 0.9,
-        anchors: true,
-      });
-      const onScroll = () => ScrollTrigger.update();
-      lenis.on("scroll", onScroll);
-      const onTick = (time: number) => lenis.raf(time * 1000);
-      gsap.ticker.add(onTick);
-      gsap.ticker.lagSmoothing(0);
-
-      const revealPreset = {
-        from: { y: 30, autoAlpha: 0, filter: "blur(8px)" },
-        to: { y: 0, autoAlpha: 1, filter: "blur(0px)" },
-      };
-
-      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
-        gsap.fromTo(element, revealPreset.from, {
-          ...revealPreset.to,
-          duration: 0.9,
-          delay: Number(element.dataset.revealDelay || 0),
-          ease: "power4.out",
-            immediateRender: false,
-            scrollTrigger: {
-            trigger: element,
-            start: "top 84%",
-            once: true,
-          },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-reveal-group]").forEach((group) => {
-        const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
-        gsap.fromTo(
-          items,
-          { y: 34, autoAlpha: 0, filter: "blur(6px)" },
-          {
-            y: 0,
-            autoAlpha: 1,
-            filter: "blur(0px)",
-            immediateRender: false,
-            duration: 0.85,
-            stagger: 0.075,
-            ease: "power4.out",
-            scrollTrigger: { trigger: group, start: "top 82%", once: true },
-          },
-        );
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-motion-text]").forEach((element) => {
-        const text = element.textContent?.trim() || "";
-        if (!text || element.dataset.motionSplit === "true") return;
-        element.setAttribute("aria-label", text);
-        element.textContent = "";
-        text.split(/(\s+)/).forEach((part) => {
-          if (!part.trim()) {
-            element.appendChild(document.createTextNode(part));
-            return;
-          }
-          const mask = document.createElement("span");
-          const word = document.createElement("span");
-          mask.className = "motion-word-mask";
-          mask.setAttribute("aria-hidden", "true");
-          word.className = "motion-word";
-          word.textContent = part;
-          mask.appendChild(word);
-          element.appendChild(mask);
-        });
-        element.dataset.motionSplit = "true";
-        gsap.set(element, { autoAlpha: 1 });
-        gsap.fromTo(
-          element.querySelectorAll(".motion-word"),
-          { yPercent: 110, autoAlpha: 0, filter: "blur(8px)" },
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            filter: "blur(0px)",
-            immediateRender: false,
-            duration: 0.9,
-            stagger: 0.045,
-            ease: "power4.out",
-            scrollTrigger: { trigger: element, start: "top 82%", once: true },
-          },
-        );
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-parallax-image]").forEach((image) => {
-        const section = image.closest<HTMLElement>("[data-parallax-section]") || image;
-        gsap.to(image, {
-          yPercent: -8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-scroll-line]").forEach((line) => {
-        gsap.fromTo(
-          line,
-          { scaleX: 0, transformOrigin: "left center" },
-          {
-            scaleX: 1,
-            duration: 1.2,
-            ease: "power3.out",
-            immediateRender: false,
-            scrollTrigger: { trigger: line, start: "top 88%", once: true },
-          },
-        );
-      });
-
-      // Horizontal slide-in from left
-      gsap.utils.toArray<HTMLElement>("[data-slide-left]").forEach((element) => {
-        gsap.fromTo(element,
-          { x: -80, autoAlpha: 0, filter: "blur(6px)" },
-          {
-            x: 0, autoAlpha: 1, filter: "blur(0px)",
-            duration: 1,
-            ease: "power4.out",
-            immediateRender: false,
-            scrollTrigger: { trigger: element, start: "top 84%", once: true },
-          },
-        );
-      });
-
-      // Horizontal slide-in from right
-      gsap.utils.toArray<HTMLElement>("[data-slide-right]").forEach((element) => {
-        gsap.fromTo(element,
-          { x: 80, autoAlpha: 0, filter: "blur(6px)" },
-          {
-            x: 0, autoAlpha: 1, filter: "blur(0px)",
-            duration: 1,
-            ease: "power4.out",
-            immediateRender: false,
-            scrollTrigger: { trigger: element, start: "top 84%", once: true },
-          },
-        );
-      });
-
-      // Scale reveal — elements scale up from 0.85 with soft blur
-      gsap.utils.toArray<HTMLElement>("[data-scale-reveal]").forEach((element) => {
-        gsap.fromTo(element,
-          { scale: 0.85, autoAlpha: 0, filter: "blur(10px)" },
-          {
-            scale: 1, autoAlpha: 1, filter: "blur(0px)",
-            duration: 0.9,
-            ease: "power3.out",
-            immediateRender: false,
-            scrollTrigger: { trigger: element, start: "top 85%", once: true },
-          },
-        );
-      });
-
-      // Stagger cards — children stagger in with subtle rotation
-      gsap.utils.toArray<HTMLElement>("[data-stagger-cards]").forEach((container) => {
-        const cards = container.children;
-        gsap.fromTo(cards,
-          { y: 50, autoAlpha: 0, rotateY: 4, filter: "blur(5px)" },
-          {
-            y: 0, autoAlpha: 1, rotateY: 0, filter: "blur(0px)",
-            duration: 0.85,
-            stagger: 0.12,
-            ease: "power4.out",
-            immediateRender: false,
-            scrollTrigger: { trigger: container, start: "top 82%", once: true },
-          },
-        );
-      });
-
-      // Image reveal — clip-path wipe animation
-      gsap.utils.toArray<HTMLElement>("[data-image-reveal]").forEach((frame) => {
-        gsap.fromTo(frame,
-          { clipPath: "inset(0 100% 0 0)" },
-          {
-            clipPath: "inset(0 0% 0 0)",
-            duration: 1.3,
-            ease: "power3.inOut",
-            immediateRender: false,
-            scrollTrigger: { trigger: frame, start: "top 80%", once: true },
-          },
-        );
-      });
-
-      // Nav compact on scroll
-      const nav = document.querySelector<HTMLElement>("[data-nav]");
-      if (nav) {
-        ScrollTrigger.create({
-          start: "top -80",
-          onUpdate: (self) => {
-            nav.classList.toggle("nav-compact", self.direction === 1 && self.scroll() > 80);
-          },
-        });
-      }
-
-      if (!coarse) {
-        const cursor = document.querySelector<HTMLElement>("[data-cursor]");
-        const cursorLabel = cursor?.querySelector<HTMLElement>("[data-cursor-label]");
-        if (cursor) {
-          const xTo = gsap.quickTo(cursor, "x", { duration: 0.35, ease: "power3.out" });
-          const yTo = gsap.quickTo(cursor, "y", { duration: 0.35, ease: "power3.out" });
-          const handleMove = (event: PointerEvent) => {
-            xTo(event.clientX);
-            yTo(event.clientY);
-          };
-          document.addEventListener("pointermove", handleMove, { passive: true });
-          const targets = document.querySelectorAll<HTMLElement>("[data-cursor-label]:not([data-cursor])");
-          const targetCleanups: Array<() => void> = [];
-          targets.forEach((target) => {
-            const enter = () => {
-              if (cursorLabel) cursorLabel.textContent = target.dataset.cursorLabel || "";
-              gsap.to(cursor, { scale: 1.65, duration: 0.3, ease: "power3.out" });
-            };
-            const leave = () => {
-              if (cursorLabel) cursorLabel.textContent = "";
-              gsap.to(cursor, { scale: 1, duration: 0.3, ease: "power3.out" });
-            };
-            target.addEventListener("pointerenter", enter);
-            target.addEventListener("pointerleave", leave);
-            targetCleanups.push(() => {
-              target.removeEventListener("pointerenter", enter);
-              target.removeEventListener("pointerleave", leave);
-            });
-          });
-          (cursor as MotionElement).__motionCleanups = [
-            () => document.removeEventListener("pointermove", handleMove),
-            ...targetCleanups,
-          ];
-        }
-
-        gsap.utils.toArray<HTMLElement>("[data-magnetic]").forEach((element) => {
-          const strength = Number(element.dataset.magnetic || 0.16);
-          const xTo = gsap.quickTo(element, "x", { duration: 0.45, ease: "power3.out" });
-          const yTo = gsap.quickTo(element, "y", { duration: 0.45, ease: "power3.out" });
-          const move = (event: PointerEvent) => {
-            const rect = element.getBoundingClientRect();
-            xTo((event.clientX - rect.left - rect.width / 2) * strength);
-            yTo((event.clientY - rect.top - rect.height / 2) * strength);
-          };
-          const leave = () => {
-            xTo(0);
-            yTo(0);
-          };
-          element.addEventListener("pointermove", move);
-          element.addEventListener("pointerleave", leave);
-          (element as MotionElement).__motionCleanups = [
-            () => element.removeEventListener("pointermove", move),
-            () => element.removeEventListener("pointerleave", leave),
-          ];
-        });
-
-        gsap.utils.toArray<HTMLElement>("[data-mouse-parallax]").forEach((section) => {
-          const layers = section.querySelectorAll<HTMLElement>("[data-mouse-depth]");
-          const setters = Array.from(layers).map((layer) => ({
-            layer,
-            depth: Number(layer.dataset.mouseDepth || 0.035),
-            xTo: gsap.quickTo(layer, "x", { duration: 0.8, ease: "power3.out" }),
-            yTo: gsap.quickTo(layer, "y", { duration: 0.8, ease: "power3.out" }),
-          }));
-          const move = (event: PointerEvent) => {
-            const rect = section.getBoundingClientRect();
-            const x = event.clientX - rect.left - rect.width / 2;
-            const y = event.clientY - rect.top - rect.height / 2;
-            setters.forEach(({ depth, xTo, yTo }) => {
-              xTo(x * depth);
-              yTo(y * depth);
-            });
-          };
-          const leave = () => setters.forEach(({ xTo, yTo }) => {
-            xTo(0);
-            yTo(0);
-          });
-          section.addEventListener("pointermove", move);
-          section.addEventListener("pointerleave", leave);
-          (section as MotionElement).__motionCleanups = [
-            () => section.removeEventListener("pointermove", move),
-            () => section.removeEventListener("pointerleave", leave),
-          ];
-        });
-      }
-
-      const refresh = () => ScrollTrigger.refresh();
-      window.addEventListener("load", refresh, { once: true });
-      window.setTimeout(refresh, 80);
-
-      return () => {
-        window.removeEventListener("load", refresh);
-        lenis.off("scroll", onScroll);
-        gsap.ticker.remove(onTick);
-        lenis.destroy();
-        document.querySelectorAll<MotionElement>("[data-magnetic], [data-mouse-parallax], [data-cursor]").forEach((element) => {
-          element.__motionCleanups?.forEach((cleanup) => cleanup());
-          delete element.__motionCleanups;
-        });
-      };
-    });
-
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    const onEsc = (e) => {
+      if (e.key === 'Escape') setMobileOpen(false);
     };
-  }, [location]);
+    if (mobileOpen) {
+      document.addEventListener('keydown', onEsc);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.removeEventListener('keydown', onEsc);
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  // Matches your 5-page structure — edit hrefs/filenames if they differ
+  const navLinks = [
+    { label: 'Home', href: 'index.html' },
+    { label: 'About', href: 'about.html' },
+    { label: 'Projects', href: 'projects.html' },
+    { label: 'Skills', href: 'skills.html' },
+    { label: 'Contact', href: 'contact.html' },
+  ];
+
+  return (
+    <header className="fixed top-4 inset-x-0 z-50 px-4">
+      <nav className="flex items-center border mx-auto w-full max-w-5xl px-6 py-4 border-slate-700 rounded-full text-white text-sm bg-black/40 backdrop-blur-md">
+        {/* Logo — swap for your own mark/initials */}
+        <a href="index.html" aria-label="Home" className="flex items-center">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="4.706" cy="16" r="4.706" fill="#D9D9D9" />
+            <circle cx="16.001" cy="4.706" r="4.706" fill="#D9D9D9" />
+            <circle cx="16.001" cy="27.294" r="4.706" fill="#D9D9D9" />
+            <circle cx="27.294" cy="16" r="4.706" fill="#D9D9D9" />
+          </svg>
+        </a>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-6 ml-8">
+          {navLinks.map(({ label, href }) => (
+            <a key={label} href={href} className="relative overflow-hidden h-6 group">
+              <span className="block group-hover:-translate-y-full transition-transform duration-300">
+                {label}
+              </span>
+              <span className="block absolute top-full left-0 group-hover:translate-y-[-100%] transition-transform duration-300">
+                {label}
+              </span>
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop CTA */}
+        <div className="hidden ml-auto md:flex items-center gap-4">
+          <button className="border border-slate-600 hover:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium transition">
+            Resume
+          </button>
+          <button className="bg-white hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
+            Contact
+          </button>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          aria-label="Open menu"
+          className="md:hidden ml-auto text-gray-300 hover:text-white"
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        {/* Mobile overlay */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          className={[
+            'fixed inset-0 w-full h-full bg-black text-base md:hidden flex-col items-center justify-center gap-6 z-50',
+            mobileOpen ? 'flex' : 'hidden',
+          ].join(' ')}
+        >
+          {navLinks.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              className="text-lg hover:text-indigo-400"
+              onClick={() => setMobileOpen(false)}
+            >
+              {label}
+            </a>
+          ))}
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="border border-slate-600 hover:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium transition"
+          >
+            Resume
+          </button>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="bg-white hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300"
+          >
+            Contact
+          </button>
+          <button
+            aria-label="Close menu"
+            className="absolute top-5 right-5 p-2 rounded-full border border-white/10 hover:bg-white/10"
+            onClick={() => setMobileOpen(false)}
+          >
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
 }
